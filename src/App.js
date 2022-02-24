@@ -4,6 +4,7 @@ import {
   useFilters,
   useGlobalFilter,
   useAsyncDebounce,
+  usePagination,
 } from 'react-table';
 import BlockMath from '@matejmazur/react-katex';
 import 'katex/dist/katex.min.css';
@@ -128,6 +129,16 @@ function Table({ columns, data }) {
     rows,
     prepareRow,
     state,
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
     visibleColumns,
     preGlobalFilteredRows,
     setGlobalFilter,
@@ -135,16 +146,14 @@ function Table({ columns, data }) {
     {
       columns,
       data,
-      defaultColumn, // Be sure to pass the defaultColumn option
+      defaultColumn,
       filterTypes,
+      initialState: { pageIndex: 0 },
     },
-    useFilters, // useFilters!
-    useGlobalFilter // useGlobalFilter!
+    useFilters,
+    useGlobalFilter,
+    usePagination
   );
-
-  // We don't want to render all of the rows for this example, so cap
-  // it for this use case
-  const firstPageRows = rows.slice(0, 10);
 
   return (
     <>
@@ -177,7 +186,7 @@ function Table({ columns, data }) {
           </tr>
         </thead>
         <tbody {...getTableBodyProps()}>
-          {firstPageRows.map((row, i) => {
+          {page.map((row, i) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
@@ -191,6 +200,51 @@ function Table({ columns, data }) {
           })}
         </tbody>
       </table>
+      {/** Pagination */}
+      <div className='pagination'>
+        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          {'<<'}
+        </button>{' '}
+        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+          {'<'}
+        </button>{' '}
+        <button onClick={() => nextPage()} disabled={!canNextPage}>
+          {'>'}
+        </button>{' '}
+        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          {'>>'}
+        </button>{' '}
+        <span>
+          Page{' '}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>{' '}
+        </span>
+        <span>
+          | Go to page:{' '}
+          <input
+            type='number'
+            defaultValue={pageIndex + 1}
+            onChange={(e) => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0;
+              gotoPage(page);
+            }}
+            style={{ width: '100px' }}
+          />
+        </span>{' '}
+        <select
+          value={pageSize}
+          onChange={(e) => {
+            setPageSize(Number(e.target.value));
+          }}
+        >
+          {[10, 20, 30, 40, 50].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+      </div>
       <br />
       <div>Showing the first 20 results of {rows.length} rows</div>
       <div>
@@ -203,10 +257,6 @@ function Table({ columns, data }) {
 }
 
 function App() {
-  // GOOGLE SHEETS
-  //console.log(process.env.REACT_APP_GOOGLE_API_KEY);
-  //console.log(process.env.REACT_APP_GOOGLE_SHEETS_ID);
-
   let data = React.useMemo(
     () => [
       {
@@ -260,15 +310,15 @@ function App() {
         id: 'Function in Latex',
         Header: 'Measurement function',
         //accessor: 'Function in Latex',
-        accessor: (row) => { 
+        accessor: (row) => {
           return (
             <BlockMath>
               {String.raw`
                 ${row['Function in Latex']}
                 `}
             </BlockMath>
-          )
-           },
+          );
+        },
       },
       {
         Header: 'Interpretation',
