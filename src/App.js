@@ -5,6 +5,7 @@ import {
   useGlobalFilter,
   useAsyncDebounce,
   usePagination,
+  useRowSelect,
 } from 'react-table';
 import BlockMath from '@matejmazur/react-katex';
 import 'katex/dist/katex.min.css';
@@ -15,9 +16,11 @@ import { matchSorter } from 'match-sorter';
 
 const Styles = styled.div`
   padding: 1rem;
+
   table {
     border-spacing: 0;
     border: 1px solid blue;
+
     tr {
       :last-child {
         td {
@@ -25,18 +28,41 @@ const Styles = styled.div`
         }
       }
     }
+
     th,
     td {
       margin: 0;
       padding: 0.5rem;
       border-bottom: 1px solid black;
       border-right: 1px solid black;
+
       :last-child {
         border-right: 0;
       }
     }
   }
+
+  .pagination {
+    padding: 0.5rem;
+  }
 `;
+
+const IndeterminateCheckbox = React.forwardRef(
+  ({ indeterminate, ...rest }, ref) => {
+    const defaultRef = React.useRef();
+    const resolvedRef = ref || defaultRef;
+
+    React.useEffect(() => {
+      resolvedRef.current.indeterminate = indeterminate;
+    }, [resolvedRef, indeterminate]);
+
+    return (
+      <>
+        <input type='checkbox' ref={resolvedRef} {...rest} />
+      </>
+    );
+  }
+);
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -138,10 +164,11 @@ function Table({ columns, data }) {
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
+    state: { pageIndex, pageSize, selectedRowIds },
     visibleColumns,
     preGlobalFilteredRows,
     setGlobalFilter,
+    selectedFlatRows,
   } = useTable(
     {
       columns,
@@ -152,7 +179,31 @@ function Table({ columns, data }) {
     },
     useFilters,
     useGlobalFilter,
-    usePagination
+    usePagination,
+    useRowSelect,
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => [
+        // Let's make a column for selection
+        {
+          id: 'selection',
+          // The header can use the table's getToggleAllRowsSelectedProps method
+          // to render a checkbox
+          Header: ({ getToggleAllPageRowsSelectedProps }) => (
+            <div>
+              <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
+            </div>
+          ),
+          // The cell can use the individual row's getToggleRowSelectedProps method
+          // to the render a checkbox
+          Cell: ({ row }) => (
+            <div>
+              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+            </div>
+          ),
+        },
+        ...columns,
+      ]);
+    }
   );
 
   return (
@@ -200,6 +251,7 @@ function Table({ columns, data }) {
           })}
         </tbody>
       </table>
+
       {/** Pagination */}
       <div className='pagination'>
         <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
@@ -250,6 +302,20 @@ function Table({ columns, data }) {
       <div>
         <pre>
           <code>{JSON.stringify(state.filters, null, 2)}</code>
+        </pre>
+        <pre>
+          <code>
+            {JSON.stringify(
+              {
+                selectedRowIds: selectedRowIds,
+                'selectedFlatRows[].original': selectedFlatRows.map(
+                  (d) => d.original
+                ),
+              },
+              null,
+              2
+            )}
+          </code>
         </pre>
       </div>
     </>
