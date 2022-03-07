@@ -6,6 +6,7 @@ import {
   useAsyncDebounce,
   usePagination,
   useRowSelect,
+  useSortBy,
 } from 'react-table';
 import BlockMath from '@matejmazur/react-katex';
 import 'katex/dist/katex.min.css';
@@ -179,6 +180,7 @@ function Table({ columns, data }) {
     },
     useFilters,
     useGlobalFilter,
+    useSortBy,
     usePagination,
     useRowSelect,
     (hooks) => {
@@ -213,10 +215,24 @@ function Table({ columns, data }) {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>
-                  {column.render('Header')}
+                // Add the sorting props to control sorting. For this example
+                // we can add them into the header props
+                <th>
+                  <div
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                  >
+                    {column.render('Header')}
+                  </div>
                   {/* Render the columns filter UI */}
                   <div>{column.canFilter ? column.render('Filter') : null}</div>
+                  {/* Add a sort direction indicator */}
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? ' 🔽'
+                        : ' 🔼'
+                      : ''}
+                  </span>
                 </th>
               ))}
             </tr>
