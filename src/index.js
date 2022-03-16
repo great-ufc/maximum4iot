@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+//import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-//import 'bootswatch/dist/yeti/bootstrap.min.css';
+import 'bootswatch/dist/yeti/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>

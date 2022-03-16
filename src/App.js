@@ -11,8 +11,42 @@ import {
 import BlockMath from '@matejmazur/react-katex';
 import 'katex/dist/katex.min.css';
 import useGoogleSheets from 'use-google-sheets';
+import styled from 'styled-components';
 import { matchSorter } from 'match-sorter';
 //import './App.css';
+
+const Styles = styled.div`
+  padding: 1rem;
+
+  table {
+    border-spacing: 0;
+    border: 1px solid blue;
+
+    tr {
+      :last-child {
+        td {
+          border-bottom: 0;
+        }
+      }
+    }
+
+    th,
+    td {
+      margin: 0;
+      padding: 0.5rem;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+
+      :last-child {
+        border-right: 0;
+      }
+    }
+  }
+
+  .pagination {
+    padding: 0.5rem;
+  }
+`;
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -176,18 +210,14 @@ function Table({ columns, data }) {
 
   return (
     <>
-      <h1 className='text-3xl font-bold underline'>Maximum4IoT</h1>
-      <table
-        {...getTableProps()}
-        className='table-auto border-collapse border border-slate-400'
-      >
+      <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 // Add the sorting props to control sorting. For this example
                 // we can add them into the header props
-                <th className='p-3 border border-slate-300'>
+                <th>
                   <div
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                   >
@@ -226,15 +256,10 @@ function Table({ columns, data }) {
           {page.map((row, i) => {
             prepareRow(row);
             return (
-              <tr className='hover:bg-slate-50' {...row.getRowProps()}>
+              <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return (
-                    <td
-                      className='p-3 border border-slate-300'
-                      {...cell.getCellProps()}
-                    >
-                      {cell.render('Cell')}
-                    </td>
+                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                   );
                 })}
               </tr>
@@ -411,7 +436,9 @@ function App() {
 
   return (
     <div>
-      <Table columns={columns} data={data} />
+      <Styles>
+        <Table columns={columns} data={data} />
+      </Styles>
 
       {<div>{JSON.stringify(data)}</div>}
       <button onClick={refetch}>Refetch</button>
