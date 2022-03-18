@@ -15,7 +15,7 @@ import styled from 'styled-components';
 import { matchSorter } from 'match-sorter';
 //import './App.css';
 
-const Styles = styled.div`
+/* const Styles = styled.div`
   padding: 1rem;
 
   table {
@@ -46,7 +46,7 @@ const Styles = styled.div`
   .pagination {
     padding: 0.5rem;
   }
-`;
+`; */
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -210,108 +210,146 @@ function Table({ columns, data }) {
 
   return (
     <>
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                // Add the sorting props to control sorting. For this example
-                // we can add them into the header props
-                <th>
-                  <div
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                  >
-                    {column.render('Header')}
-                  </div>
-                  {/* Render the columns filter UI */}
-                  <div>{column.canFilter ? column.render('Filter') : null}</div>
-                  {/* Add a sort direction indicator */}
-                  <span>
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? ' 🔽'
-                        : ' 🔼'
-                      : ''}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-          <tr>
-            <th
-              colSpan={visibleColumns.length}
-              style={{
-                textAlign: 'left',
-              }}
-            >
-              <GlobalFilter
-                preGlobalFilteredRows={preGlobalFilteredRows}
-                globalFilter={state.globalFilter}
-                setGlobalFilter={setGlobalFilter}
-              />
-            </th>
-          </tr>
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                  );
-                })}
+      <div className='table-responsive'>
+        <table
+          className='table table-hover table-bordered border-secondary align-middle'
+          {...getTableProps()}
+        >
+          <thead className='table-light'>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  // Add the sorting props to control sorting. For this example
+                  // we can add them into the header props
+                  <th>
+                    <div
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                    >
+                      {column.render('Header')}
+                    </div>
+                    {/* Render the columns filter UI */}
+                    <div>
+                      {column.canFilter ? column.render('Filter') : null}
+                    </div>
+                    {/* Add a sort direction indicator */}
+                    <span>
+                      {column.isSorted
+                        ? column.isSortedDesc
+                          ? ' 🔽'
+                          : ' 🔼'
+                        : ''}
+                    </span>
+                  </th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            ))}
+            <tr>
+              <th
+                colSpan={visibleColumns.length}
+                style={{
+                  textAlign: 'left',
+                }}
+              >
+                <GlobalFilter
+                  preGlobalFilteredRows={preGlobalFilteredRows}
+                  globalFilter={state.globalFilter}
+                  setGlobalFilter={setGlobalFilter}
+                />
+              </th>
+            </tr>
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map((row, i) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
 
       {/** Pagination */}
-      <div className='pagination'>
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {'<<'}
-        </button>{' '}
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          {'<'}
-        </button>{' '}
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
-          {'>'}
-        </button>{' '}
-        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          {'>>'}
-        </button>{' '}
-        <span>
-          Page{' '}
+      <div className='btn-toolbar m-4' role='toolbar'>
+        <div className='btn-group m-4' role='group'>
+          <button
+            type='button'
+            className='btn btn-primary'
+            onClick={() => gotoPage(0)}
+            disabled={!canPreviousPage}
+          >
+            {'<<'}
+          </button>
+          <button
+            type='button'
+            className='btn btn-primary'
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}
+          >
+            {'<'}
+          </button>
+          <button
+            type='button'
+            className='btn btn-primary'
+            onClick={() => nextPage()}
+            disabled={!canNextPage}
+          >
+            {'>'}
+          </button>
+          <button
+            type='button'
+            className='btn btn-primary'
+            onClick={() => gotoPage(pageCount - 1)}
+            disabled={!canNextPage}
+          >
+            {'>>'}
+          </button>
+        </div>
+        <div className='btn-group m-4 pt-2' role='group'>
+          Page{`\u00A0`} {/* non-breaking space */}
+          
           <strong>
             {pageIndex + 1} of {pageOptions.length}
-          </strong>{' '}
-        </span>
-        <span>
-          | Go to page:{' '}
-          <input
-            type='number'
-            defaultValue={pageIndex + 1}
+          </strong>
+        </div>
+        <div className='btn-group m-4' role='group'>
+          <div class='input-group'>
+            <span class='input-group-text' id='basic-addon1'>
+              Go to page:
+            </span>
+            <input
+              type='number'
+              defaultValue={pageIndex + 1}
+              onChange={(e) => {
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                gotoPage(page);
+              }}
+              style={{ width: '100px' }}
+            />
+          </div>
+        </div>
+        <div className='btn-group m-4' role='group'>
+          <select
+            className='form-select'
+            style={{ width: 'auto' }}
+            value={pageSize}
             onChange={(e) => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0;
-              gotoPage(page);
+              setPageSize(Number(e.target.value));
             }}
-            style={{ width: '100px' }}
-          />
-        </span>{' '}
-        <select
-          value={pageSize}
-          onChange={(e) => {
-            setPageSize(Number(e.target.value));
-          }}
-        >
-          {[10, 20, 30, 40, 50].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
+          >
+            {[10, 20, 30, 40, 50].map((pageSize) => (
+              <option key={pageSize} value={pageSize}>
+                Show {pageSize}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <br />
       <div>Showing the first 20 results of {rows.length} rows</div>
@@ -388,7 +426,7 @@ function App() {
         Header: 'NFR',
         accessor: 'NFR',
       },
-      {
+      /* {
         id: 'Function in Latex',
         Header: 'Measurement function',
         //accessor: 'Function in Latex',
@@ -401,7 +439,7 @@ function App() {
             </BlockMath>
           );
         },
-      },
+      }, */
       {
         Header: 'Interpretation',
         accessor: 'Interpretation',
@@ -436,9 +474,9 @@ function App() {
 
   return (
     <div>
-      <Styles>
-        <Table columns={columns} data={data} />
-      </Styles>
+      {/* <Styles> */}
+      <Table columns={columns} data={data} />
+      {/* </Styles> */}
 
       {<div>{JSON.stringify(data)}</div>}
       <button onClick={refetch}>Refetch</button>
