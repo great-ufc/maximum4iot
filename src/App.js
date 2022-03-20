@@ -221,7 +221,7 @@ function Table({ columns, data }) {
                 {headerGroup.headers.map((column) => (
                   // Add the sorting props to control sorting. For this example
                   // we can add them into the header props
-                  <th>
+                  <th {...column.getHeaderProps()}>
                     <div
                       {...column.getHeaderProps(column.getSortByToggleProps())}
                     >
@@ -274,7 +274,7 @@ function Table({ columns, data }) {
           </tbody>
         </table>
       </div>
-      
+
       {/** Pagination */}
       <div className='btn-toolbar m-4' role='toolbar'>
         <div className='btn-group m-4' role='group'>
@@ -313,7 +313,6 @@ function Table({ columns, data }) {
         </div>
         <div className='btn-group m-4 pt-2' role='group'>
           Page{`\u00A0`} {/* non-breaking space */}
-          
           <strong>
             {pageIndex + 1} of {pageOptions.length}
           </strong>
