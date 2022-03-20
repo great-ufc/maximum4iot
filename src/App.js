@@ -274,7 +274,7 @@ function Table({ columns, data }) {
           </tbody>
         </table>
       </div>
-
+      
       {/** Pagination */}
       <div className='btn-toolbar m-4' role='toolbar'>
         <div className='btn-group m-4' role='group'>
@@ -319,8 +319,8 @@ function Table({ columns, data }) {
           </strong>
         </div>
         <div className='btn-group m-4' role='group'>
-          <div class='input-group'>
-            <span class='input-group-text' id='basic-addon1'>
+          <div className='input-group'>
+            <span className='input-group-text' id='basic-addon1'>
               Go to page:
             </span>
             <input
