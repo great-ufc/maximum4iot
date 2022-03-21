@@ -11,42 +11,7 @@ import {
 import BlockMath from '@matejmazur/react-katex';
 import 'katex/dist/katex.min.css';
 import useGoogleSheets from 'use-google-sheets';
-import styled from 'styled-components';
 import { matchSorter } from 'match-sorter';
-//import './App.css';
-
-/* const Styles = styled.div`
-  padding: 1rem;
-
-  table {
-    border-spacing: 0;
-    border: 1px solid blue;
-
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-
-      :last-child {
-        border-right: 0;
-      }
-    }
-  }
-
-  .pagination {
-    padding: 0.5rem;
-  }
-`; */
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -350,8 +315,19 @@ function Table({ columns, data }) {
           </select>
         </div>
       </div>
+      <div className='d-grid gap-2'>
+        <button
+          className='btn btn-lg btn-primary'
+          type='button'
+          onClick={handleSubmit}
+        >
+          Next
+        </button>
+      </div>
       <br />
-      <div>Showing the first 20 results of {rows.length} rows</div>
+      <div>
+        Showing {pageSize} results of {rows.length} rows
+      </div>
       <div>
         <pre>
           <code>{JSON.stringify(state.filters, null, 2)}</code>
@@ -370,9 +346,17 @@ function Table({ columns, data }) {
             )}
           </code>
         </pre>
+        <pre>
+          <code>{JSON.stringify(state, null, 2)}</code>
+        </pre>
       </div>
     </>
   );
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  console.log(e);
 }
 
 function App() {
@@ -473,11 +457,9 @@ function App() {
 
   return (
     <div>
-      {/* <Styles> */}
       <Table columns={columns} data={data} />
-      {/* </Styles> */}
 
-      {<div>{JSON.stringify(data)}</div>}
+      {/* <div>{JSON.stringify(data)}</div> */}
       <button onClick={refetch}>Refetch</button>
     </div>
   );
