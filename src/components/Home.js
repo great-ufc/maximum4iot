@@ -118,7 +118,6 @@ function Home(props) {
               state: { data: selectedRows },
             })
           }
-          disabled={!selectedRows.length > 0}
         >
           Next
         </button>
