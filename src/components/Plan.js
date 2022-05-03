@@ -7,7 +7,7 @@ export default function Plan() {
 
   return (
     <div>
-      <h1>Plan...</h1>
+      <h1>Plan</h1>
       <table className='table table-hover table-bordered border-secondary align-middle'>
         {rows.map((row) => {
           return (
