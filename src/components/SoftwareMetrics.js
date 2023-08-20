@@ -1,22 +1,20 @@
 import React from 'react';
 import useGoogleSheets from 'use-google-sheets';
 import { useNavigate } from 'react-router-dom';
-import BlockMath from '@matejmazur/react-katex';
 import Table from './Table';
 
-function Home(props) {
+function SoftwareMetrics(props) {
   const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = React.useState(null);
 
   let data = React.useMemo(
     () => [
       {
-        Measure: 'Loading...',
         Description: 'Loading...',
-        NFR: 'Loading...',
-        'Measurement function': 'Loading...',
-        Interpretation: 'Loading...',
-        'Collect method': 'Loading...',
+        RelatedNFR:'Loading...',
+        MeasurementFunction:'Loading...',
+        Interpretation:'Loading...',
+        CollectMethod:'Loading...',
         Reference: 'Loading...',
       },
     ],
@@ -35,8 +33,8 @@ function Home(props) {
   if (loading) {
     console.log('Loading...');
   } else {
-    data = sheetData[0]['data'];
-    console.log('my data:', data)
+    data = sheetData[2]['data'];
+    console.log('SoftwareMetrics data:', data)
   }
 
   if (error) {
@@ -46,30 +44,16 @@ function Home(props) {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Measure',
-        accessor: 'Measure', // accessor is the "key" in the data
-      },
-      {
         Header: 'Description',
         accessor: 'Description',
       },
       {
-        Header: 'NFR',
-        accessor: 'NFR',
+        Header: 'Related NFR',
+        accessor: 'Related NFR',
       },
       {
-        id: 'Function in Latex',
         Header: 'Measurement function',
-        //accessor: 'Function in Latex',
-        accessor: (row) => {
-          return (
-            <BlockMath>
-              {String.raw`
-                ${row['Function in Latex']}
-                `}
-            </BlockMath>
-          );
-        },
+        accessor: 'Measurement function',
       },
       {
         Header: 'Interpretation',
@@ -87,24 +71,9 @@ function Home(props) {
     []
   );
 
-  //console.log(data);
-  /* data = data.map(function (item) {
-    item['Function in Latex'] = 'b ' + item['Function in Latex'];
-    return item;
-  });  */
-
-  /*
-  (
-    <BlockMath>
-      {String.raw`
-        X = \frac{A}{T}\\A = \textup{number of cases encountered by the users with}\\\\\textup{the disconnection in the system beyond allowable}\\\\
-        `}
-    </BlockMath>
-  )
-  */
-
   return (
     <div>
+      {console.log('opa',data)}
       <Table
         columns={columns}
         data={data}
@@ -115,7 +84,7 @@ function Home(props) {
           className='btn btn-lg btn-primary'
           type='button'
           onClick={() =>
-            navigate('artifacts', {
+            navigate('plan', {
               state: { data: selectedRows },
             })
           }
@@ -127,4 +96,4 @@ function Home(props) {
   );
 }
 
-export default Home;
+export default SoftwareMetrics;

@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import Home from './components/Home';
-import Plan from './components/Plan';
+import Artifacts from './components/Artifacts';
+import SoftwareMetrics from './components/SoftwareMetrics';
+//import Plan from './components/Plan';
 import About from './components/About';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -14,7 +16,8 @@ ReactDOM.render(
       <Routes>
         <Route path='/' element={<App />}>
           <Route index element={<Home />} />
-          <Route path='/plan' element={<Plan />} />
+          <Route path='/artifacts' element={<Artifacts />} />
+          <Route path='/softwaremetrics' element={<SoftwareMetrics />}/>
           <Route path='/about' element={<About />} />
         </Route>
       </Routes>

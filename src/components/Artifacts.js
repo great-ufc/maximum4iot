@@ -1,22 +1,18 @@
 import React from 'react';
 import useGoogleSheets from 'use-google-sheets';
 import { useNavigate } from 'react-router-dom';
-import BlockMath from '@matejmazur/react-katex';
 import Table from './Table';
 
-function Home(props) {
+function Artifacts(props) {
   const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = React.useState(null);
 
   let data = React.useMemo(
     () => [
       {
-        Measure: 'Loading...',
+        Artifacts: 'Loading...',
         Description: 'Loading...',
-        NFR: 'Loading...',
-        'Measurement function': 'Loading...',
-        Interpretation: 'Loading...',
-        'Collect method': 'Loading...',
+        NFR: 'Loading...', 'Measurement function': 'Loading...',
         Reference: 'Loading...',
       },
     ],
@@ -35,8 +31,9 @@ function Home(props) {
   if (loading) {
     console.log('Loading...');
   } else {
-    data = sheetData[0]['data'];
-    console.log('my data:', data)
+    //console.log('artefetos e vc:', sheetData[1]['data'])
+    data = sheetData[1]['data'];
+    console.log('Artifacts data:', data)
   }
 
   if (error) {
@@ -46,8 +43,8 @@ function Home(props) {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Measure',
-        accessor: 'Measure', // accessor is the "key" in the data
+        Header: 'Artifact',
+        accessor: 'Artifact', // accessor is the "key" in the data
       },
       {
         Header: 'Description',
@@ -58,28 +55,6 @@ function Home(props) {
         accessor: 'NFR',
       },
       {
-        id: 'Function in Latex',
-        Header: 'Measurement function',
-        //accessor: 'Function in Latex',
-        accessor: (row) => {
-          return (
-            <BlockMath>
-              {String.raw`
-                ${row['Function in Latex']}
-                `}
-            </BlockMath>
-          );
-        },
-      },
-      {
-        Header: 'Interpretation',
-        accessor: 'Interpretation',
-      },
-      {
-        Header: 'Collect method',
-        accessor: 'Collect method',
-      },
-      {
         Header: 'Reference',
         accessor: 'Reference',
       },
@@ -87,24 +62,9 @@ function Home(props) {
     []
   );
 
-  //console.log(data);
-  /* data = data.map(function (item) {
-    item['Function in Latex'] = 'b ' + item['Function in Latex'];
-    return item;
-  });  */
-
-  /*
-  (
-    <BlockMath>
-      {String.raw`
-        X = \frac{A}{T}\\A = \textup{number of cases encountered by the users with}\\\\\textup{the disconnection in the system beyond allowable}\\\\
-        `}
-    </BlockMath>
-  )
-  */
-
   return (
     <div>
+      {console.log('opa',data)}
       <Table
         columns={columns}
         data={data}
@@ -115,7 +75,7 @@ function Home(props) {
           className='btn btn-lg btn-primary'
           type='button'
           onClick={() =>
-            navigate('artifacts', {
+            navigate('/softwaremetrics', {
               state: { data: selectedRows },
             })
           }
@@ -127,4 +87,4 @@ function Home(props) {
   );
 }
 
-export default Home;
+export default Artifacts;
