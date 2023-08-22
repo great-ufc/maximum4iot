@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import useGoogleSheets from 'use-google-sheets';
 import { useNavigate } from 'react-router-dom';
 import Table from './Table';
@@ -47,10 +47,10 @@ function SoftwareMetrics(props) {
         Header: 'Description',
         accessor: 'Description',
       },
-      {
+      /*{
         Header: 'Related NFR',
         accessor: 'Related NFR',
-      },
+      },*/
       {
         Header: 'Measurement function',
         accessor: 'Measurement function',
@@ -71,27 +71,34 @@ function SoftwareMetrics(props) {
     []
   );
 
+  useEffect(()=>{
+    localStorage.setItem('step3', JSON.stringify(selectedRows));
+    const valor = localStorage.getItem('chave');
+    console.log(valor);
+  }, [selectedRows])
+
   return (
-    <div>
-      {console.log('opa',data)}
+    <div className='mt-4'>
       <Table
         columns={columns}
         data={data}
         onSelectedRowsClicked={(selectedRow) => setSelectedRows(selectedRow)}
       />
-      <div className='d-grid gap-2'>
-        <button
-          className='btn btn-lg btn-primary'
-          type='button'
-          onClick={() =>
-            navigate('plan', {
-              state: { data: selectedRows },
-            })
-          }
-        >
-          Next
-        </button>
-      </div>
+      <center> <div className="container fluid">
+      <button class="btn btn-primary btn-lg active" size="lg" style={{ backgroundColor: '#186aa4',width: '392px' }} 
+      onClick={() =>
+        navigate('/plan', {
+          state: { data: selectedRows },
+        })
+      }
+      >
+        FINISH MY EVALUATION PLAN
+      </button>
+   
+      </div> </center>
+      <br></br>
+        <br></br>
+      
     </div>
   );
 }

@@ -1,30 +1,147 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React from "react";
+import TableBoot from "react-bootstrap/Table";
+import printJS from 'print-js';
 
 export default function Plan() {
-  let location = useLocation();
-  const rows = location.state.data;
 
+  const handlePrint = () => {
+    printJS({
+      printable: 'conteudo-para-imprimir', // ID do elemento que você quer imprimir
+      type: 'html',
+      style: '@media print { body { font-size: 12pt } }'
+    });
+  };
+
+  const step1 = JSON.parse(localStorage.getItem("step1"));
+  const step2 = JSON.parse(localStorage.getItem("step2"));
+  const step3 = JSON.parse(localStorage.getItem("step3"));
+  
   return (
-    <div>
-      <h1>Plan</h1>
-      <table className='table table-hover table-bordered border-secondary align-middle'>
-        {rows.map((row) => {
-          return (
-            <tr>
-              <p>Measure: {row['Measure']}</p>
-              <p>Description: {row['Description']}</p>
-              <p>NFR: {row['NFR']}</p>
-              <p>Measurement function: {row['Measurement function']}</p>
-              <p>Function in Latex: {row['Function in Latex']}</p>
-              <p>Interpretation: {row['Interpretation']}</p>
-              <p>Collect method: {row['Collect method']}</p>
-              <p>Reference: {row['Reference']}</p>
-            </tr>
-          );
-        })}
-      </table>
-      {/* <pre>{JSON.stringify(location.state, null, 2)}</pre> */}
+    <>
+      <div id="conteudo-para-imprimir" className="container fluid">
+        <center>
+          <h1 className="mt-4">Evaluation plan for an IoT System</h1>
+        </center>
+        <hr></hr>
+        <center>
+          <h3>Non Funtional Requiriments</h3>
+        </center>
+        <div className="table-responsive">
+          <TableBoot bordered hover>
+            <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Non Functional Requiriments:</th>
+                  <th>Description:</th>
+                  <th>Reference:</th>
+                </tr>
+              </thead>
+              <tbody>
+              {step1.map((item, i) => {
+                return (       
+                    <tr key={i}>
+                      <td>{i+1}</td>
+                      <td>{item.NFR}</td>
+                      <td>{item.Description}</td>
+                      <td>{item.Reference}</td>
+                    </tr>
+                )
+                })}
+                </tbody>
+                </TableBoot>
+            </div>
+        <br></br>
+        <br></br>
+        <center>
+          <h3>Artifacts</h3>
+        </center>
+
+        <div className="table-responsive">
+          <TableBoot bordered hover>
+            <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Artifact:</th>
+                  <th>Description:</th>
+                  <th>NFR:</th>
+                  <th>Reference:</th>
+                </tr>
+              </thead>
+              <tbody>
+              {step2.map((item, i) => {
+                return (       
+                    <tr key={i}>
+                      <td>{i+1}</td>
+                      <td>{item.Artifact}</td>
+                      <td>{item.Description}</td>
+                      <td>{item.NFR}</td>
+                      <td>{item.Reference}</td>
+                    </tr>
+                )
+                })}
+                </tbody>
+                </TableBoot>
+            </div>
+        <br></br>
+        <br></br>
+        <center>
+          <h3>Software metrics</h3>
+        </center>
+        <div className="table-responsive">
+          <TableBoot bordered hover>
+            <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Measure:</th>
+                  <th>Description:</th>
+                  <th>Related NFR:</th>
+                  <th>Measurement function:</th>
+                  <th>Interpretation:</th>
+                  <th>Collect method:</th> 
+                  <th>Reference:</th>
+                </tr>
+              </thead>
+              <tbody>
+              {step3.map((item, i) => {
+                return (       
+                    <tr key={i}>
+                      <td>{i+1}</td>
+                      <td>{item.Measure}</td>
+                      <td>{item.Description}</td>
+                      <td>{item["Related NFR"]}</td>
+                      <td>{item["Measurement function"]}</td>
+                      <td>{item.Interpretation}</td>
+                      <td>{item["Collect method"]}</td>
+                      <td>{item.Reference}</td>
+                    </tr>
+                )
+                })}
+                </tbody>
+                </TableBoot>
+            </div>
+      </div>
+      <center>
+        
+
+        <div>
+
+      <button class="btn btn-primary btn-lg active"
+            size="lg"
+            style={{ backgroundColor: "#186aa4", width: "192px" }} 
+            onClick={handlePrint}>
+        Print Out - PDF
+      </button>
+
     </div>
+        
+        
+      </center>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+
+    </>
   );
 }

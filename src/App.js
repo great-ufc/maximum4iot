@@ -1,18 +1,15 @@
 import { Outlet } from 'react-router-dom';
-
-import './App.css';
 import Header from './components/Header';
-
-import 'bootswatch/dist/yeti/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className='container fluid'>
+    <div style={{ display: 'grid', gridAutoFlow: 'row', gridTemplateRows:'60px auto 60px', height: "100vh"}}>
       <Header />
-      <div className='row'>
+      <div>
         <Outlet />
       </div>
+      <Footer />
     </div>
   );
 }

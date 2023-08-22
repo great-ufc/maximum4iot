@@ -1,19 +1,21 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import useGoogleSheets from 'use-google-sheets';
 import { useNavigate } from 'react-router-dom';
 import Table from './Table';
 
-function Artifacts(props) {
+function NonFunctionalRequirements(props) {
   const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = React.useState(null);
 
   let data = React.useMemo(
     () => [
       {
-        Artifacts: 'Loading...',
+        Measure: 'Loading...',
         Description: 'Loading...',
-        //NFR: 'Loading...', 
+        NFR: 'Loading...',
         'Measurement function': 'Loading...',
+        Interpretation: 'Loading...',
+        'Collect method': 'Loading...',
         Reference: 'Loading...',
       },
     ],
@@ -32,9 +34,8 @@ function Artifacts(props) {
   if (loading) {
     console.log('Loading...');
   } else {
-    //console.log('artefetos e vc:', sheetData[1]['data'])
-    data = sheetData[1]['data'];
-    console.log('Artifacts data:', data)
+    data = sheetData[0]['data'];
+    //console.log('my data:', data)
   }
 
   if (error) {
@@ -44,17 +45,13 @@ function Artifacts(props) {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Artifact',
-        accessor: 'Artifact', // accessor is the "key" in the data
-      },
-      {
         Header: 'Description',
         accessor: 'Description',
       },
-      /*{
+      {
         Header: 'NFR',
         accessor: 'NFR',
-      },*/
+      },
       {
         Header: 'Reference',
         accessor: 'Reference',
@@ -64,27 +61,31 @@ function Artifacts(props) {
   );
 
   useEffect(()=>{
-    localStorage.setItem('step2', JSON.stringify(selectedRows));
-    const valor = localStorage.getItem('chave');
-    console.log(valor);
+    localStorage.setItem('step1', JSON.stringify(selectedRows));
+    //const valor = localStorage.getItem('chave');
+    //console.log(valor);
   }, [selectedRows])
+
+  
+  //const handleNext = () => {
+  //}
 
   return (
     <div>
       <div className='container fluid'>
-        <h4 style={{ color: '#186aa4' }}>CHOOSE THE QUALITATIVE EVALUATION TOOLS</h4>
-        <h5> Before starting a qualitative evaluation, it is necessary to plan it, clarify its objectives and establish what questions will be answered based on its results. The DECIDE method can be used to help plan the evaluation, you can access it by clicking here.</h5>      
+      <h4 style={{ color: '#186aa4' }}>CHOOSE THE NFRS</h4>
+      <h5 > At the first stage of the process, the non-functional requirements to be assessed are selected. Engaging stakeholders is essential for the this fase to ensure that the evaluation is carried out efficiently and covers all critical aspects of the sustem to be assessed. </h5>
       </div>
-
+      
       <Table
         columns={columns}
         data={data}
         onSelectedRowsClicked={(selectedRow) => setSelectedRows(selectedRow)}
       />
       <center> <div className="container fluid">
-      <button class="btn btn-primary btn-lg active mb-5" size="lg" style={{ backgroundColor: '#186aa4',width: '192px' }} 
+      <button className="btn btn-primary btn-lg active mb-5" size="lg" style={{ backgroundColor: '#186aa4',width: '192px' }} 
       onClick={() =>
-        navigate('/softwaremetrics', {
+        navigate('/artifacts', {
           state: { data: selectedRows },
         })
       }
@@ -93,8 +94,10 @@ function Artifacts(props) {
       </button>
    
       </div> </center>
+      
+
     </div>
   );
 }
 
-export default Artifacts;
+export default NonFunctionalRequirements;

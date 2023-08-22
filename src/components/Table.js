@@ -3,13 +3,15 @@ import {
   useTable,
   useFilters,
   useGlobalFilter,
-  useAsyncDebounce,
+  //useAsyncDebounce,
   usePagination,
   useRowSelect,
   useSortBy,
 } from 'react-table';
 import 'katex/dist/katex.min.css';
 import { matchSorter } from 'match-sorter';
+import TableBoot from 'react-bootstrap/Table';
+
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -29,6 +31,7 @@ const IndeterminateCheckbox = React.forwardRef(
 );
 
 // Define a default UI for filtering
+/*
 function GlobalFilter({
   preGlobalFilteredRows,
   globalFilter,
@@ -57,7 +60,7 @@ function GlobalFilter({
       />
     </span>
   );
-}
+}*/
 
 // Define a default UI for filtering
 function DefaultColumnFilter({
@@ -120,7 +123,7 @@ function Table({ columns, data, onSelectedRowsClicked }) {
     headerGroups,
     rows,
     prepareRow,
-    state,
+    //state,
     page,
     canPreviousPage,
     canNextPage,
@@ -131,9 +134,9 @@ function Table({ columns, data, onSelectedRowsClicked }) {
     previousPage,
     setPageSize,
     state: { pageIndex, pageSize },
-    visibleColumns,
-    preGlobalFilteredRows,
-    setGlobalFilter,
+    //visibleColumns,
+    //preGlobalFilteredRows,
+    //setGlobalFilter,
     selectedFlatRows,
   } = useTable(
     {
@@ -183,12 +186,14 @@ function Table({ columns, data, onSelectedRowsClicked }) {
 
   return (
     <>
+      <div className='container fluid'>
+
       <div className='table-responsive'>
-        <table
+        <TableBoot
           className='table table-hover table-bordered border-secondary align-middle'
           {...getTableProps()}
         >
-          <thead className='table-light'>
+          <thead className='table-secondary border border-dark'>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
@@ -216,20 +221,6 @@ function Table({ columns, data, onSelectedRowsClicked }) {
                 ))}
               </tr>
             ))}
-            <tr>
-              <th
-                colSpan={visibleColumns.length}
-                style={{
-                  textAlign: 'left',
-                }}
-              >
-                <GlobalFilter
-                  preGlobalFilteredRows={preGlobalFilteredRows}
-                  globalFilter={state.globalFilter}
-                  setGlobalFilter={setGlobalFilter}
-                />
-              </th>
-            </tr>
           </thead>
           <tbody {...getTableBodyProps()}>
             {page.map((row, i) => {
@@ -245,15 +236,19 @@ function Table({ columns, data, onSelectedRowsClicked }) {
               );
             })}
           </tbody>
-        </table>
+        </TableBoot>
+        
       </div>
-
       {/** Pagination */}
-      <div className='btn-toolbar m-4' role='toolbar'>
+      <center>
+      <div>
+        Showing {pageSize} results of {rows.length} rows
+      </div>
+      <div  role='toolbar'>
         <div className='btn-group m-4' role='group'>
           <button
             type='button'
-            className='btn btn-primary'
+            className='btn btn-secondary'
             onClick={() => gotoPage(0)}
             disabled={!canPreviousPage}
           >
@@ -261,7 +256,7 @@ function Table({ columns, data, onSelectedRowsClicked }) {
           </button>
           <button
             type='button'
-            className='btn btn-primary'
+            className='btn btn-secondary'
             onClick={() => previousPage()}
             disabled={!canPreviousPage}
           >
@@ -269,7 +264,7 @@ function Table({ columns, data, onSelectedRowsClicked }) {
           </button>
           <button
             type='button'
-            className='btn btn-primary'
+            className='btn btn-secondary'
             onClick={() => nextPage()}
             disabled={!canNextPage}
           >
@@ -277,7 +272,7 @@ function Table({ columns, data, onSelectedRowsClicked }) {
           </button>
           <button
             type='button'
-            className='btn btn-primary'
+            className='btn btn-secondary'
             onClick={() => gotoPage(pageCount - 1)}
             disabled={!canNextPage}
           >
@@ -291,22 +286,6 @@ function Table({ columns, data, onSelectedRowsClicked }) {
           </strong>
         </div>
         <div className='btn-group m-4' role='group'>
-          <div className='input-group'>
-            <span className='input-group-text' id='basic-addon1'>
-              Go to page:
-            </span>
-            <input
-              type='number'
-              defaultValue={pageIndex + 1}
-              onChange={(e) => {
-                const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                gotoPage(page);
-              }}
-              style={{ width: '100px' }}
-            />
-          </div>
-        </div>
-        <div className='btn-group m-4' role='group'>
           <select
             className='form-select'
             style={{ width: 'auto' }}
@@ -314,7 +293,7 @@ function Table({ columns, data, onSelectedRowsClicked }) {
             onChange={(e) => {
               setPageSize(Number(e.target.value));
             }}
-          >
+            >
             {[10, 20, 30, 40, 50].map((pageSize) => (
               <option key={pageSize} value={pageSize}>
                 Show {pageSize}
@@ -323,9 +302,8 @@ function Table({ columns, data, onSelectedRowsClicked }) {
           </select>
         </div>
       </div>
+      </center>
       <br />
-      <div>
-        Showing {pageSize} results of {rows.length} rows
       </div>
     </>
   );
