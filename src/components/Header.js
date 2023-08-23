@@ -8,7 +8,7 @@ function Header() {
     <>
       <Navbar style={{ backgroundColor: '#186aa4', color: 'white' }} data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="/"> <b>Maximum4IoT</b> </Navbar.Brand>
+          <Navbar.Brand href="/maximum4iot"> <b>Maximum4IoT</b> </Navbar.Brand>
           <Nav className="justify-content-end">
             <Nav.Link href="/complementaryartifacts" active> Complementary Artifacts </Nav.Link>
             <Nav.Link href="/ourteam" active> Our Team</Nav.Link>

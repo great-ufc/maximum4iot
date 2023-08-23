@@ -11,7 +11,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const createRoutes = () => (
         <React.StrictMode>
-            <Router>
+            <Router basename="/maximum4iot">
             <Routes>
                 <Route path='/' element={<App />}>
                 <Route index element={<Home />} />
