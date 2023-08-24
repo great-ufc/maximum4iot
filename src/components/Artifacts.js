@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
-import useGoogleSheets from 'use-google-sheets';
-import { useNavigate } from 'react-router-dom';
-import Table from './Table';
+import React, { useEffect } from "react";
+import useGoogleSheets from "use-google-sheets";
+import { useNavigate } from "react-router-dom";
+import Table from "./Table";
 
 function Artifacts(props) {
   const navigate = useNavigate();
@@ -10,11 +10,11 @@ function Artifacts(props) {
   let data = React.useMemo(
     () => [
       {
-        Artifacts: 'Loading...',
-        Description: 'Loading...',
-        //NFR: 'Loading...', 
-        'Measurement function': 'Loading...',
-        Reference: 'Loading...',
+        Artifacts: "Loading...",
+        Description: "Loading...",
+        //NFR: 'Loading...',
+        "Measurement function": "Loading...",
+        Reference: "Loading...",
       },
     ],
     []
@@ -30,50 +30,56 @@ function Artifacts(props) {
   });
 
   if (loading) {
-    console.log('Loading...');
+    console.log("Loading...");
   } else {
-    //console.log('artefetos e vc:', sheetData[1]['data'])
-    data = sheetData[1]['data'];
-    console.log('Artifacts data:', data)
+    data = sheetData[1]["data"];
+    console.log("Artifacts data:", data);
   }
 
   if (error) {
-    console.log('Error!');
+    console.log("Error!");
   }
 
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Artifact',
-        accessor: 'Artifact', // accessor is the "key" in the data
+        Header: "Artifact",
+        accessor: "Artifact",
       },
       {
-        Header: 'Description',
-        accessor: 'Description',
+        Header: "Description",
+        accessor: "Description",
       },
       /*{
         Header: 'NFR',
         accessor: 'NFR',
       },*/
       {
-        Header: 'Reference',
-        accessor: 'Reference',
+        Header: "Reference",
+        accessor: "Reference",
       },
     ],
     []
   );
 
-  useEffect(()=>{
-    localStorage.setItem('step2', JSON.stringify(selectedRows));
-    const valor = localStorage.getItem('chave');
+  useEffect(() => {
+    localStorage.setItem("step2", JSON.stringify(selectedRows));
+    const valor = localStorage.getItem("chave");
     console.log(valor);
-  }, [selectedRows])
+  }, [selectedRows]);
 
   return (
     <div>
-      <div className='container fluid'>
-        <h4 style={{ color: '#186aa4' }}>CHOOSE THE QUALITATIVE EVALUATION TOOLS</h4>
-        <h5> Before starting a qualitative evaluation, it is necessary to plan it, clarify its objectives and establish what questions will be answered based on its results. The DECIDE method can be used to help plan the evaluation, you can access it by clicking here.</h5>      
+      <div className="container fluid mt-4">
+        <h4 style={{ color: "#186aa4" }}>
+          CHOOSE THE QUALITATIVE EVALUATION TOOLS
+        </h4>
+        <h5>
+          Before starting a qualitative evaluation, it is necessary to plan it,
+          clarify its objectives and establish what questions will be answered
+          based on its results. The DECIDE method can be used to help plan the
+          evaluation, you can access it by clicking here.
+        </h5>
       </div>
 
       <Table
@@ -81,18 +87,21 @@ function Artifacts(props) {
         data={data}
         onSelectedRowsClicked={(selectedRow) => setSelectedRows(selectedRow)}
       />
-      <center> <div className="container fluid">
-      <button class="btn btn-primary btn-lg active mb-5" size="lg" style={{ backgroundColor: '#186aa4',width: '192px' }} 
-      onClick={() =>
-        navigate('/softwaremetrics', {
-          state: { data: selectedRows },
-        })
-      }
-      >
-        NEXT STEP
-      </button>
-   
-      </div> </center>
+
+      <div className="d-flex justify-content-center align-items-center">
+        <button
+          class="btn btn-primary btn-lg active"
+          size="lg"
+          style={{ backgroundColor: "#186aa4", width: "192px" }}
+          onClick={() =>
+            navigate("/softwaremetrics", {
+              state: { data: selectedRows },
+            })
+          }
+        >
+          NEXT STEP
+        </button>
+      </div>
     </div>
   );
 }

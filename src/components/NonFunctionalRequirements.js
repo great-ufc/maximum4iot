@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
-import useGoogleSheets from 'use-google-sheets';
-import { useNavigate } from 'react-router-dom';
-import Table from './Table';
+import React, { useEffect } from "react";
+import useGoogleSheets from "use-google-sheets";
+import { useNavigate } from "react-router-dom";
+import Table from "./Table";
+import "../css/global.css";
 
 function NonFunctionalRequirements(props) {
   const navigate = useNavigate();
@@ -10,13 +11,13 @@ function NonFunctionalRequirements(props) {
   let data = React.useMemo(
     () => [
       {
-        Measure: 'Loading...',
-        Description: 'Loading...',
-        NFR: 'Loading...',
-        'Measurement function': 'Loading...',
-        Interpretation: 'Loading...',
-        'Collect method': 'Loading...',
-        Reference: 'Loading...',
+        Measure: "Loading...",
+        Description: "Loading...",
+        NFR: "Loading...",
+        "Measurement function": "Loading...",
+        Interpretation: "Loading...",
+        "Collect method": "Loading...",
+        Reference: "Loading...",
       },
     ],
     []
@@ -32,70 +33,70 @@ function NonFunctionalRequirements(props) {
   });
 
   if (loading) {
-    console.log('Loading...');
+    console.log("Loading...");
   } else {
-    data = sheetData[0]['data'];
-    //console.log('my data:', data)
+    data = sheetData[0]["data"];
   }
 
   if (error) {
-    console.log('Error!');
+    console.log("Error!");
   }
 
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Description',
-        accessor: 'Description',
+        Header: "NFR",
+        accessor: "NFR",
       },
       {
-        Header: 'NFR',
-        accessor: 'NFR',
+        Header: "Description",
+        accessor: "Description",
       },
       {
-        Header: 'Reference',
-        accessor: 'Reference',
+        Header: "Reference",
+        accessor: "Reference",
       },
     ],
     []
   );
 
-  useEffect(()=>{
-    localStorage.setItem('step1', JSON.stringify(selectedRows));
-    //const valor = localStorage.getItem('chave');
-    //console.log(valor);
-  }, [selectedRows])
-
-  
-  //const handleNext = () => {
-  //}
+  useEffect(() => {
+    localStorage.setItem("step1", JSON.stringify(selectedRows));
+  }, [selectedRows]);
 
   return (
     <div>
-      <div className='container fluid'>
-      <h4 style={{ color: '#186aa4' }}>CHOOSE THE NFRS</h4>
-      <h5 > At the first stage of the process, the non-functional requirements to be assessed are selected. Engaging stakeholders is essential for the this fase to ensure that the evaluation is carried out efficiently and covers all critical aspects of the sustem to be assessed. </h5>
+      <div className="container fluid mt-4">
+        <h4 style={{ color: "#186aa4" }}>CHOOSE THE NFRS</h4>
+        <h5>
+          {" "}
+          At the first stage of the process, the non-functional requirements to
+          be assessed are selected. Engaging stakeholders is essential for the
+          this fase to ensure that the evaluation is carried out efficiently and
+          covers all critical aspects of the sustem to be assessed.{" "}
+        </h5>
       </div>
-      
+
       <Table
         columns={columns}
         data={data}
         onSelectedRowsClicked={(selectedRow) => setSelectedRows(selectedRow)}
       />
-      <center> <div className="container fluid">
-      <button className="btn btn-primary btn-lg active mb-5" size="lg" style={{ backgroundColor: '#186aa4',width: '192px' }} 
-      onClick={() =>
-        navigate('/artifacts', {
-          state: { data: selectedRows },
-        })
-      }
-      >
-        NEXT STEP
-      </button>
-   
-      </div> </center>
-      
 
+      <div className="d-flex justify-content-center align-items-center">
+        <button
+          className="btn btn-primary btn-lg active mb-4"
+          size="lg"
+          style={{ backgroundColor: "#186aa4", width: "192px" }}
+          onClick={() =>
+            navigate("/artifacts", {
+              state: { data: selectedRows },
+            })
+          }
+        >
+          NEXT STEP
+        </button>
+      </div>
     </div>
   );
 }

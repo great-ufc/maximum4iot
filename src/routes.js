@@ -7,6 +7,8 @@ import Plan from './components/Plan';
 import About from './pages/About';
 import Home from './pages/Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import OurTeam from './pages/OurTeam';
+import ComplementaryArtifacts from './pages/ComplementaryArtifacts';
 
 
 const createRoutes = () => (
@@ -18,6 +20,8 @@ const createRoutes = () => (
                 <Route path='/nonfuncionalrequirements' element={<NonFunctionalRequirements />} />
                 <Route path='/artifacts' element={<Artifacts />} />
                 <Route path='/softwaremetrics' element={<SoftwareMetrics />}/>
+                <Route path='/complementaryartifacts' element={<ComplementaryArtifacts />} />
+                <Route path='/ourteam' element={<OurTeam />} /> 
                 <Route path='/about' element={<About />} />
                 <Route path='/plan' element={<Plan />} />
                 </Route>
@@ -26,4 +30,4 @@ const createRoutes = () => (
         </React.StrictMode>
     );
 
-export default createRoutes
+export default createRoutes;

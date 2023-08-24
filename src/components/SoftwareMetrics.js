@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
-import useGoogleSheets from 'use-google-sheets';
-import { useNavigate } from 'react-router-dom';
-import Table from './Table';
+import React, { useEffect } from "react";
+import useGoogleSheets from "use-google-sheets";
+import { useNavigate } from "react-router-dom";
+import Table from "./Table";
 
 function SoftwareMetrics(props) {
   const navigate = useNavigate();
@@ -10,12 +10,12 @@ function SoftwareMetrics(props) {
   let data = React.useMemo(
     () => [
       {
-        Description: 'Loading...',
-        RelatedNFR:'Loading...',
-        MeasurementFunction:'Loading...',
-        Interpretation:'Loading...',
-        CollectMethod:'Loading...',
-        Reference: 'Loading...',
+        Description: "Loading...",
+        RelatedNFR: "Loading...",
+        MeasurementFunction: "Loading...",
+        Interpretation: "Loading...",
+        CollectMethod: "Loading...",
+        Reference: "Loading...",
       },
     ],
     []
@@ -31,74 +31,88 @@ function SoftwareMetrics(props) {
   });
 
   if (loading) {
-    console.log('Loading...');
+    console.log("Loading...");
   } else {
-    data = sheetData[2]['data'];
-    console.log('SoftwareMetrics data:', data)
+    data = sheetData[2]["data"];
+    console.log("SoftwareMetrics data:", data);
   }
 
   if (error) {
-    console.log('Error!');
+    console.log("Error!");
   }
 
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Description',
-        accessor: 'Description',
+        Header: "Measure",
+        accessor: "Measure",
+      },
+      {
+        Header: "Description",
+        accessor: "Description",
       },
       /*{
         Header: 'Related NFR',
         accessor: 'Related NFR',
       },*/
       {
-        Header: 'Measurement function',
-        accessor: 'Measurement function',
+        Header: "Measurement function",
+        accessor: "Measurement function",
       },
       {
-        Header: 'Interpretation',
-        accessor: 'Interpretation',
+        Header: "Interpretation",
+        accessor: "Interpretation",
       },
       {
-        Header: 'Collect method',
-        accessor: 'Collect method',
+        Header: "Collect method",
+        accessor: "Collect method",
       },
       {
-        Header: 'Reference',
-        accessor: 'Reference',
+        Header: "Reference",
+        accessor: "Reference",
       },
     ],
     []
   );
 
-  useEffect(()=>{
-    localStorage.setItem('step3', JSON.stringify(selectedRows));
-    const valor = localStorage.getItem('chave');
+  useEffect(() => {
+    localStorage.setItem("step3", JSON.stringify(selectedRows));
+    const valor = localStorage.getItem("chave");
     console.log(valor);
-  }, [selectedRows])
+  }, [selectedRows]);
 
   return (
-    <div className='mt-4'>
+    <div className="mt-4">
+      <div className="container fluid mt-4">
+        <h4 style={{ color: "#186aa4" }}>CHOOSE THE SOFTWARE PROCESS</h4>
+        <h5>
+          In prima processus parte, eliguntur requisita non functionalia ad
+          aestimationem. Essentialis est stakeholders allicere in hac phase ut
+          efficienter aestimatio perficiatur et omnia critica systematis, quod
+          aestimandum est, comprehendat.
+        </h5>
+      </div>
+
       <Table
         columns={columns}
         data={data}
         onSelectedRowsClicked={(selectedRow) => setSelectedRows(selectedRow)}
       />
-      <center> <div className="container fluid">
-      <button class="btn btn-primary btn-lg active" size="lg" style={{ backgroundColor: '#186aa4',width: '392px' }} 
-      onClick={() =>
-        navigate('/plan', {
-          state: { data: selectedRows },
-        })
-      }
-      >
-        FINISH MY EVALUATION PLAN
-      </button>
-   
-      </div> </center>
-      <br></br>
-        <br></br>
-      
+
+      <div className="d-flex justify-content-center align-items-center mb-4">
+        <button
+          class="btn btn-primary btn-lg active"
+          size="lg"
+          style={{ backgroundColor: "#186aa4", width: "392px" }}
+          onClick={() =>
+            navigate("/plan", {
+              state: { data: selectedRows },
+            })
+          }
+        >
+          FINISH MY EVALUATION PLAN
+        </button>
+      </div>
     </div>
   );
 }

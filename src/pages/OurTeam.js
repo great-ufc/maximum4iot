@@ -1,8 +1,7 @@
-
 export default function OurTeam() {
   return (
     <div>
-      <h1>OurTeam...</h1>
+      <p className="container mt-5"> This is still in development... updates soon... :) </p>
     </div>
   );
 }

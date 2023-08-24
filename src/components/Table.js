@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   useTable,
   useFilters,
@@ -70,6 +71,7 @@ function DefaultColumnFilter({
 
   return (
     <input
+      className="w-100"
       value={filterValue || ''}
       onChange={(e) => {
         setFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
@@ -181,7 +183,7 @@ function Table({ columns, data, onSelectedRowsClicked }) {
     );
     if (onSelectedRowsClicked !== undefined) {
       onSelectedRowsClicked(selectedRows);
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFlatRows]);
 
   return (
@@ -189,11 +191,11 @@ function Table({ columns, data, onSelectedRowsClicked }) {
       <div className='container fluid'>
 
       <div className='table-responsive'>
-        <TableBoot
-          className='table table-hover table-bordered border-secondary align-middle'
+        <TableBoot 
+          className='table table-hover border-secondary align-middle'
           {...getTableProps()}
         >
-          <thead className='table-secondary border border-dark'>
+          <thead className='table-secondary'>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
