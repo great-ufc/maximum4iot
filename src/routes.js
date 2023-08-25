@@ -13,7 +13,7 @@ import ComplementaryArtifacts from './pages/ComplementaryArtifacts';
 
 const createRoutes = () => (
         <React.StrictMode>
-            <Router>
+            <Router basename="/maximum4iot">
             <Routes>
                 <Route path='/' element={<App />}>
                 <Route index element={<Home />} />

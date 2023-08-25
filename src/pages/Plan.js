@@ -131,7 +131,7 @@ export default function Plan() {
         </button>
       </div>
       <center className="mb-4">
-        <a  style={{ color: "#186aa4" }} href="/">
+        <a  style={{ color: "#186aa4" }} href="/maximum4iot">
           Restart the process.
         </a>
       </center>
