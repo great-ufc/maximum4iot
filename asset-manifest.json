@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/maximum4iot/static/css/main.f25a1889.css",
+    "main.css": "/maximum4iot/static/css/main.5b2cb324.css",
     "main.js": "/maximum4iot/static/js/main.512ab150.js",
     "static/media/KaTeX_AMS-Regular.ttf": "/maximum4iot/static/media/KaTeX_AMS-Regular.853be92419a6c3766b9a.ttf",
     "static/media/KaTeX_Main-Regular.ttf": "/maximum4iot/static/media/KaTeX_Main-Regular.9eba1d77abcf2aa6e94e.ttf",
@@ -63,11 +63,11 @@
     "static/media/KaTeX_Size3-Regular.woff": "/maximum4iot/static/media/KaTeX_Size3-Regular.7947224e8a9914fa332b.woff",
     "static/media/KaTeX_Size3-Regular.woff2": "/maximum4iot/static/media/KaTeX_Size3-Regular.e1951519f6f0596f7356.woff2",
     "index.html": "/maximum4iot/index.html",
-    "main.f25a1889.css.map": "/maximum4iot/static/css/main.f25a1889.css.map",
+    "main.5b2cb324.css.map": "/maximum4iot/static/css/main.5b2cb324.css.map",
     "main.512ab150.js.map": "/maximum4iot/static/js/main.512ab150.js.map"
   },
   "entrypoints": [
-    "static/css/main.f25a1889.css",
+    "static/css/main.5b2cb324.css",
     "static/js/main.512ab150.js"
   ]
 }
