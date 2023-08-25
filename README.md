@@ -10,11 +10,17 @@ npm install yarn
 
 Step 2:
 
-Create a copy of the ```.env``` file called ```.env.local``` an put your Google API credentials.
+```
+yarn add use-google-sheets
+```
 
 Step 3:
 
-Check about Google API credentials, if your GoogleSheets API is ```activated```.
+In ```.env``` file, put your Google API credentials.
+
+Step 4:
+
+Check about Google API credentials, and next, check your Google Sheets API is ```activated``` in APIs and services.
 
 ## 🚀 Start <maximum4IoT>
 
@@ -31,6 +37,14 @@ yarn start
 
 <table>
   <tr>
+  <td align="center">
+      <a href="#">
+        <img src="https://avatars.githubusercontent.com/u/49402911" width="100px;" alt="Foto de Joseane Vale no GitHub"/><br>
+        <sub>
+          <b>Joseane Vale</b>
+        </sub>
+      </a>
+    </td>
     <td align="center">
       <a href="#">
         <img src="https://avatars.githubusercontent.com/u/34164821" width="100px;" alt="Foto do Hartur Alcântara no GitHub"/><br>

@@ -1,19 +1,20 @@
 import React, { useEffect } from "react";
 import useGoogleSheets from "use-google-sheets";
 import { useNavigate } from "react-router-dom";
-import Table from "./Table";
+import Table from "../components/Table";
 
-function Artifacts(props) {
+function SoftwareMetrics(props) {
   const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = React.useState(null);
 
   let data = React.useMemo(
     () => [
       {
-        Artifacts: "Loading...",
         Description: "Loading...",
-        //NFR: 'Loading...',
-        "Measurement function": "Loading...",
+        RelatedNFR: "Loading...",
+        MeasurementFunction: "Loading...",
+        Interpretation: "Loading...",
+        CollectMethod: "Loading...",
         Reference: "Loading...",
       },
     ],
@@ -32,8 +33,8 @@ function Artifacts(props) {
   if (loading) {
     console.log("Loading...");
   } else {
-    data = sheetData[1]["data"];
-    console.log("Artifacts data:", data);
+    data = sheetData[2]["data"];
+    console.log("SoftwareMetrics data:", data);
   }
 
   if (error) {
@@ -43,17 +44,29 @@ function Artifacts(props) {
   const columns = React.useMemo(
     () => [
       {
-        Header: "Artifact",
-        accessor: "Artifact",
+        Header: "Measure",
+        accessor: "Measure",
       },
       {
         Header: "Description",
         accessor: "Description",
       },
       /*{
-        Header: 'NFR',
-        accessor: 'NFR',
+        Header: 'Related NFR',
+        accessor: 'Related NFR',
       },*/
+      {
+        Header: "Measurement function",
+        accessor: "Measurement function",
+      },
+      {
+        Header: "Interpretation",
+        accessor: "Interpretation",
+      },
+      {
+        Header: "Collect method",
+        accessor: "Collect method",
+      },
       {
         Header: "Reference",
         accessor: "Reference",
@@ -63,22 +76,20 @@ function Artifacts(props) {
   );
 
   useEffect(() => {
-    localStorage.setItem("step2", JSON.stringify(selectedRows));
+    localStorage.setItem("step3", JSON.stringify(selectedRows));
     const valor = localStorage.getItem("chave");
     console.log(valor);
   }, [selectedRows]);
 
   return (
-    <div>
+    <div className="mt-4">
       <div className="container fluid mt-4">
-        <h4 style={{ color: "#186aa4" }}>
-          CHOOSE THE QUALITATIVE EVALUATION TOOLS
-        </h4>
+        <h4 style={{ color: "#186aa4" }}>CHOOSE THE SOFTWARE PROCESS</h4>
         <h5>
-          Before starting a qualitative evaluation, it is necessary to plan it,
-          clarify its objectives and establish what questions will be answered
-          based on its results. The DECIDE method can be used to help plan the
-          evaluation, you can access it by clicking here.
+          In prima processus parte, eliguntur requisita non functionalia ad
+          aestimationem. Essentialis est stakeholders allicere in hac phase ut
+          efficienter aestimatio perficiatur et omnia critica systematis, quod
+          aestimandum est, comprehendat.
         </h5>
       </div>
 
@@ -88,22 +99,22 @@ function Artifacts(props) {
         onSelectedRowsClicked={(selectedRow) => setSelectedRows(selectedRow)}
       />
 
-      <div className="d-flex justify-content-center align-items-center">
+      <div className="d-flex justify-content-center align-items-center mb-4">
         <button
           class="btn btn-primary btn-lg active"
           size="lg"
-          style={{ backgroundColor: "#186aa4", width: "192px" }}
+          style={{ backgroundColor: "#186aa4", width: "392px" }}
           onClick={() =>
-            navigate("/softwaremetrics", {
+            navigate("/plan", {
               state: { data: selectedRows },
             })
           }
         >
-          NEXT STEP
+          FINISH MY EVALUATION PLAN
         </button>
       </div>
     </div>
   );
 }
 
-export default Artifacts;
+export default SoftwareMetrics;

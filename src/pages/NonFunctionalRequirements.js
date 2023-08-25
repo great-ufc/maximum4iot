@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import useGoogleSheets from "use-google-sheets";
 import { useNavigate } from "react-router-dom";
-import Table from "./Table";
+import Table from "../components/Table";
 import "../css/global.css";
 
 function NonFunctionalRequirements(props) {

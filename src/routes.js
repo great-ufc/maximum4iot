@@ -1,9 +1,9 @@
 import React from 'react';
 import App from './App';
-import NonFunctionalRequirements from './components/NonFunctionalRequirements';
-import Artifacts from './components/Artifacts';
-import SoftwareMetrics from './components/SoftwareMetrics';
-import Plan from './components/Plan';
+import NonFunctionalRequirements from './pages/NonFunctionalRequirements';
+import Artifacts from './pages/Artifacts';
+import SoftwareMetrics from './pages/SoftwareMetrics';
+import Plan from './pages/Plan';
 import About from './pages/About';
 import Home from './pages/Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
