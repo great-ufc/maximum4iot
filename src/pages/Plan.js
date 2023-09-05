@@ -30,9 +30,9 @@ export default function Plan() {
             <thead className='table-secondary'>
               <tr>
                 <th>#</th>
-                <th>Non Functional Requiriments:</th>
-                <th>Description:</th>
-                <th>Reference:</th>
+                <th>Non Functional Requiriments</th>
+                <th>Description</th>
+                <th>Reference</th>
               </tr>
             </thead>
             <tbody>
@@ -60,10 +60,10 @@ export default function Plan() {
             <thead className='table-secondary'>
               <tr>
                 <th>#</th>
-                <th>Artifact:</th>
-                <th>Description:</th>
-                <th>NFR:</th>
-                <th>Reference:</th>
+                <th>Artifact</th>
+                <th>Description</th>
+                <th>NFR</th>
+                <th>Reference</th>
               </tr>
             </thead>
             <tbody>
@@ -91,13 +91,13 @@ export default function Plan() {
             <thead className='table-secondary'>
               <tr>
                 <th>#</th>
-                <th>Measure:</th>
-                <th>Description:</th>
-                <th>Related NFR:</th>
-                <th>Measurement function:</th>
-                <th>Interpretation:</th>
-                <th>Collect method:</th>
-                <th>Reference:</th>
+                <th>Measure</th>
+                <th>Description</th>
+                <th>Related NFR</th>
+                <th>Measurement function</th>
+                <th>Interpretation</th>
+                <th>Collect method</th>
+                <th>Reference</th>
               </tr>
             </thead>
             <tbody>

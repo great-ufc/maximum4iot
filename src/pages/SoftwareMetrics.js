@@ -51,10 +51,10 @@ function SoftwareMetrics(props) {
         Header: "Description",
         accessor: "Description",
       },
-      /*{
+      {
         Header: 'Related NFR',
         accessor: 'Related NFR',
-      },*/
+      },
       {
         Header: "Measurement function",
         accessor: "Measurement function",
@@ -77,9 +77,27 @@ function SoftwareMetrics(props) {
 
   useEffect(() => {
     localStorage.setItem("step3", JSON.stringify(selectedRows));
-    const valor = localStorage.getItem("chave");
-    console.log(valor);
+    //const valor = localStorage.getItem("chave");
+    //console.log(valor);
   }, [selectedRows]);
+
+  const step1 = JSON.parse(localStorage.getItem("step1"));
+  console.log('RNFs selecionados:', step1);
+
+  console.log('DATA atual:', data);
+
+  
+  /*
+  const vetor3 = data.filter(element => {
+    const parte = element.split(' ')[0]; // Obtém a primeira parte do elemento
+    console.log(parte);
+    return step1.includes(parte); // Verifica se está no vetor 1
+  });
+  console.log(vetor3);
+  */
+
+
+  
 
   return (
     <div className="mt-4">
@@ -101,7 +119,7 @@ function SoftwareMetrics(props) {
 
       <div className="d-flex justify-content-center align-items-center mb-4">
         <button
-          class="btn btn-primary btn-lg active"
+          className="btn btn-primary btn-lg active"
           size="lg"
           style={{ backgroundColor: "#186aa4", width: "392px" }}
           onClick={() =>

@@ -8,7 +8,7 @@ function Home() {
       <center>
         <div className="container fluid" style={{ display: "flex", flexDirection: "column", minHeight: "100%",alignItems: "center", justifyContent: "center", margin:'auto'}}>
           <h1 className="mb-4" style={{ color: "#186aa4" }}>
-            Maximun4IoT is a NFR evaluation process for IoT Systems{" "}
+            Maximum4IoT is a NFR evaluation process for IoT Systems{" "}
           </h1>
           <button
             className="btn btn-primary btn-lg active mb-2"
@@ -18,7 +18,7 @@ function Home() {
           >
             START AN EVALUATION
           </button>
-          <a style={{ color: "#186aa4" }} href="/about">
+          <a style={{ color: "#186aa4" }} href="/maximum4iot/about">
             I wanna know more about the process.
           </a>
         </div>

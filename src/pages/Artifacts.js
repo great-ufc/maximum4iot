@@ -33,7 +33,7 @@ function Artifacts(props) {
     console.log("Loading...");
   } else {
     data = sheetData[1]["data"];
-    console.log("Artifacts data:", data);
+    //console.log("Artifacts data:", data);
   }
 
   if (error) {
@@ -90,7 +90,7 @@ function Artifacts(props) {
 
       <div className="d-flex justify-content-center align-items-center">
         <button
-          class="btn btn-primary btn-lg active"
+          className="btn btn-primary btn-lg active mb-4"
           size="lg"
           style={{ backgroundColor: "#186aa4", width: "192px" }}
           onClick={() =>
