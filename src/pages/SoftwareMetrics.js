@@ -1,45 +1,13 @@
-import React, { useEffect } from "react";
-import useGoogleSheets from "use-google-sheets";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "../components/Table";
+import Service from "../service/Service";
 
 function SoftwareMetrics(props) {
   const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = React.useState(null);
 
-  let data = React.useMemo(
-    () => [
-      {
-        Description: "Loading...",
-        RelatedNFR: "Loading...",
-        MeasurementFunction: "Loading...",
-        Interpretation: "Loading...",
-        CollectMethod: "Loading...",
-        Reference: "Loading...",
-      },
-    ],
-    []
-  );
-
-  const {
-    data: sheetData,
-    loading,
-    error,
-  } = useGoogleSheets({
-    apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
-    sheetId: process.env.REACT_APP_GOOGLE_SHEETS_ID,
-  });
-
-  if (loading) {
-    console.log("Loading...");
-  } else {
-    data = sheetData[2]["data"];
-    console.log("SoftwareMetrics data:", data);
-  }
-
-  if (error) {
-    console.log("Error!");
-  }
+  let data = Service();
 
   const columns = React.useMemo(
     () => [
@@ -52,8 +20,8 @@ function SoftwareMetrics(props) {
         accessor: "Description",
       },
       {
-        Header: 'Related NFR',
-        accessor: 'Related NFR',
+        Header: "Related NFR",
+        accessor: "Related NFR",
       },
       {
         Header: "Measurement function",
@@ -77,27 +45,55 @@ function SoftwareMetrics(props) {
 
   useEffect(() => {
     localStorage.setItem("step3", JSON.stringify(selectedRows));
-    //const valor = localStorage.getItem("chave");
-    //console.log(valor);
   }, [selectedRows]);
 
-  const step1 = JSON.parse(localStorage.getItem("step1"));
-  console.log('RNFs selecionados:', step1);
+  let step1;
 
-  console.log('DATA atual:', data);
+  let listaNFRs;
 
-  
-  /*
-  const vetor3 = data.filter(element => {
-    const parte = element.split(' ')[0]; // Obtém a primeira parte do elemento
-    console.log(parte);
-    return step1.includes(parte); // Verifica se está no vetor 1
-  });
-  console.log(vetor3);
-  */
+  useEffect(() => {
+    step1 = JSON.parse(localStorage.getItem("step1"));
+    listaNFRs = step1.map((item) => item["NFR"]);
+  }, []);
 
+  const [dataB, setDataB] = useState([
+    {
+      Measure: "Dados reais 0",
+      Description: "Loading...",
+      RelatedNFR: "Loading...",
+      MeasurementFunction: "Loading...",
+      Interpretation: "Loading...",
+      CollectMethod: "Loading...",
+      Reference: "Loading...",
+    },
+  ]);
 
-  
+  const atualizarDados = (novosDados) => {
+    setDataB(novosDados);
+  };
+
+  let datafiltred;
+
+  useEffect(() => {
+    datafiltred = data.filter((item) => {
+      return listaNFRs.includes(item["Related NFR"]);
+    });
+  }, []);
+
+  useEffect(() => {
+    const novosDados = datafiltred.map((item) => ({
+      Measure: item.Measure,
+      Description: item.Description,
+      "Related NFR": item["Related NFR"],
+      "Measurement function": item["Measurement function"],
+      Interpretation: item.Interpretation,
+      "Collect method": item["Collect method"],
+      Reference: item.Reference,
+    }));
+
+    console.log("NOVOS DADOS AQUI:", novosDados);
+    atualizarDados(novosDados);
+  }, []);
 
   return (
     <div className="mt-4">
@@ -113,7 +109,7 @@ function SoftwareMetrics(props) {
 
       <Table
         columns={columns}
-        data={data}
+        data={dataB}
         onSelectedRowsClicked={(selectedRow) => setSelectedRows(selectedRow)}
       />
 

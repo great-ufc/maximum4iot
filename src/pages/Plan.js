@@ -23,7 +23,7 @@ export default function Plan() {
         </center>
         <hr></hr>
         <center>
-          <h3>Non Funtional Requiriments</h3>
+          <h3>Non-Funtional Requiriments</h3>
         </center>
         <div className="table-responsive">
           <TableBoot className='table table-hover border-secondary align-middle'>

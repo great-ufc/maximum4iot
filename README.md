@@ -1,39 +1,41 @@
 # Maximum4IoT
 
-## 💻 Before running, follow the next steps:
+### 💻 Before running, follow the next steps:
 
 Step 1:
 
 ```
-npm install yarn
+npm install
 ```
 
 Step 2:
 
 ```
-yarn add use-google-sheets
+npm install use-google-sheets
 ```
 
 Step 3:
 
-In ```.env``` file, put your Google API credentials.
+Create a ```.env``` file, put your Google API credentials.
+
+```
+REACT_APP_GOOGLE_API_KEY= XXXXX (your api key)
+REACT_APP_GOOGLE_SHEETS_ID= XXXXX (your sheets id)
+```
 
 Step 4:
 
-Check about Google API credentials, and next, check your Google Sheets API is ```activated``` in APIs and services.
+Check about Google API ```credentials```, and next, check your Google Sheets API is ```activated``` in APIs and services.
 
-## 🚀 Start <maximum4IoT>
+### 🚀 Start <maximum4IoT>
 
 Run:
-```
-yarn
-```
 
 ```
-yarn start
+npm start
 ```
 
-## 🤝 Colaboradores
+### 🤝 Colaboradores
 
 <table>
   <tr>
