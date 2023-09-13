@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "../components/Table";
 import Service from "../service/Service";
@@ -43,20 +43,31 @@ function SoftwareMetrics(props) {
     []
   );
 
-  useEffect(() => {
+  React.useEffect(() => {
     localStorage.setItem("step3", JSON.stringify(selectedRows));
   }, [selectedRows]);
 
-  let step1;
+  const [listaNFRs, setlistaNFRs] = useState(null);
+  const [resultado, setResultado] = useState(null);
 
-  let listaNFRs;
-
-  useEffect(() => {
-    step1 = JSON.parse(localStorage.getItem("step1"));
-    listaNFRs = step1.map((item) => item["NFR"]);
+  React.useEffect(() => {
+    let step1 = JSON.parse(localStorage.getItem("step1"));
+    let NFRs = step1.map((item) => item["NFR"]);
+    setlistaNFRs(NFRs);
   }, []);
 
-  const [dataB, setDataB] = useState([
+  console.log("Filtro:", listaNFRs);
+
+  React.useEffect(() => {
+    if (data && listaNFRs) { // Verifique se data e listaNFRs não são nulos antes de usar
+      const filtro = data.filter((item) => listaNFRs.includes(item["Related NFR"]));
+      setResultado(filtro);
+    }
+  }, [data, listaNFRs]);
+
+  console.log('Resultado final:', resultado);
+
+  let [dataB, setDataB] = React.useState([
     {
       Measure: "Dados reais 0",
       Description: "Loading...",
@@ -68,32 +79,13 @@ function SoftwareMetrics(props) {
     },
   ]);
 
-  const atualizarDados = (novosDados) => {
-    setDataB(novosDados);
-  };
+  React.useEffect(() => {
+    if (resultado) {
+      setDataB(resultado);
+    }
+  }, [resultado]);
 
-  let datafiltred;
-
-  useEffect(() => {
-    datafiltred = data.filter((item) => {
-      return listaNFRs.includes(item["Related NFR"]);
-    });
-  }, []);
-
-  useEffect(() => {
-    const novosDados = datafiltred.map((item) => ({
-      Measure: item.Measure,
-      Description: item.Description,
-      "Related NFR": item["Related NFR"],
-      "Measurement function": item["Measurement function"],
-      Interpretation: item.Interpretation,
-      "Collect method": item["Collect method"],
-      Reference: item.Reference,
-    }));
-
-    console.log("NOVOS DADOS AQUI:", novosDados);
-    atualizarDados(novosDados);
-  }, []);
+  console.log(dataB);
 
   return (
     <div className="mt-4">

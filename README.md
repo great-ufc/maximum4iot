@@ -49,17 +49,17 @@ npm start
     </td>
     <td align="center">
       <a href="#">
-        <img src="https://avatars.githubusercontent.com/u/34164821" width="100px;" alt="Foto do Hartur Alcântara no GitHub"/><br>
+        <img src="https://avatars.githubusercontent.com/u/591617?v=4" width="100px;" alt="Foto do Tales Paiva do Github"/><br>
         <sub>
-          <b>Hartur Alcântara</b>
+          <b>Tales Paiva</b>
         </sub>
       </a>
     </td>
     <td align="center">
       <a href="#">
-        <img src="https://avatars.githubusercontent.com/u/591617?v=4" width="100px;" alt="Foto do Tales Paiva do Github"/><br>
+        <img src="https://avatars.githubusercontent.com/u/34164821" width="100px;" alt="Foto do Hartur Alcântara no GitHub"/><br>
         <sub>
-          <b>Tales Paiva</b>
+          <b>Hartur Alcântara</b>
         </sub>
       </a>
     </td>

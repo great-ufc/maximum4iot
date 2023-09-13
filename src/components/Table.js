@@ -25,7 +25,7 @@ const IndeterminateCheckbox = React.forwardRef(
     return (
       <>
         <input type="checkbox" ref={resolvedRef} {...rest} />
-      </>
+      </> 
     );
   }
 );
@@ -77,7 +77,7 @@ function DefaultColumnFilter({
       }}
       placeholder={`Search ${count} records...`}
     />
-  );
+  ); 
 }
 
 function fuzzyTextFilterFn(rows, id, filterValue) {
