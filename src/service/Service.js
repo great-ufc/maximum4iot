@@ -1,7 +1,7 @@
 import React from "react";
 import useGoogleSheets from "use-google-sheets";
 
-function Service() {
+function Service(num) {
   let data = React.useMemo(
     () => [
       {
@@ -28,7 +28,7 @@ function Service() {
   if (loading) {
     console.log("Loading...");
   } else {
-    data = sheetData[2]["data"];
+    data = sheetData[num]["data"];
     console.log("SoftwareMetrics data:", data);
   }
 

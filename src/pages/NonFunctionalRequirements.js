@@ -1,46 +1,14 @@
 import React, { useEffect } from "react";
-import useGoogleSheets from "use-google-sheets";
 import { useNavigate } from "react-router-dom";
 import Table from "../components/Table";
+import Service from "../service/Service";
 import "../css/global.css";
 
 function NonFunctionalRequirements(props) {
   const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = React.useState(null);
 
-  let data = React.useMemo(
-    () => [
-      {
-        Measure: "Loading...",
-        Description: "Loading...",
-        NFR: "Loading...",
-        "Measurement function": "Loading...",
-        Interpretation: "Loading...",
-        "Collect method": "Loading...",
-        Reference: "Loading...",
-      },
-    ],
-    []
-  );
-
-  const {
-    data: sheetData,
-    loading,
-    error,
-  } = useGoogleSheets({
-    apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
-    sheetId: process.env.REACT_APP_GOOGLE_SHEETS_ID,
-  });
-
-  if (loading) {
-    console.log("Loading...");
-  } else {
-    data = sheetData[0]["data"];
-  }
-
-  if (error) {
-    console.log("Error!");
-  }
+  let data = Service(0);
 
   const columns = React.useMemo(
     () => [

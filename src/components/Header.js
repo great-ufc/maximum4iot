@@ -17,7 +17,8 @@ function Header() {
               navigate("/complementaryartifacts")}
             > Complementary Artifacts </Nav.Link>
             {/* <Nav.Link href="/maximum4iot/ourteam" active> Our Team</Nav.Link> */}
-            <Nav.Link href="/maximum4iot/about" active> About Maximum4IoT</Nav.Link>
+            <Nav.Link active onClick={() =>
+              navigate("/about")}> About Maximum4IoT</Nav.Link>
           </Nav>
         </Container>
       </Navbar>

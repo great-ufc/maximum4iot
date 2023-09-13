@@ -18,9 +18,10 @@ function Home() {
           >
             START AN EVALUATION
           </button>
-          <a style={{ color: "#186aa4" }} href="/maximum4iot/about">
+          <p style={{ color: "#186aa4", textDecoration: "underline", cursor: "pointer"}} onClick={() =>
+              navigate("/about")}>
             I wanna know more about the process.
-          </a>
+          </p>
         </div>
       </center>
     </div>

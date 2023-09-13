@@ -1,44 +1,13 @@
 import React, { useEffect } from "react";
-import useGoogleSheets from "use-google-sheets";
 import { useNavigate } from "react-router-dom";
 import Table from "../components/Table";
+import Service from "../service/Service";
 
 function Artifacts(props) {
   const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = React.useState(null);
 
-  let data = React.useMemo(
-    () => [
-      {
-        Artifacts: "Loading...",
-        Description: "Loading...",
-        //NFR: 'Loading...',
-        "Measurement function": "Loading...",
-        Reference: "Loading...",
-      },
-    ],
-    []
-  );
-
-  const {
-    data: sheetData,
-    loading,
-    error,
-  } = useGoogleSheets({
-    apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
-    sheetId: process.env.REACT_APP_GOOGLE_SHEETS_ID,
-  });
-
-  if (loading) {
-    console.log("Loading...");
-  } else {
-    data = sheetData[1]["data"];
-    //console.log("Artifacts data:", data);
-  }
-
-  if (error) {
-    console.log("Error!");
-  }
+  let data = Service(1);
 
   const columns = React.useMemo(
     () => [

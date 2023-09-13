@@ -7,7 +7,7 @@ function SoftwareMetrics(props) {
   const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = React.useState(null);
 
-  let data = Service();
+  let data = Service(2);
 
   const columns = React.useMemo(
     () => [
@@ -78,6 +78,7 @@ function SoftwareMetrics(props) {
       Reference: "Loading...",
     },
   ]);
+
 
   React.useEffect(() => {
     if (resultado) {
