@@ -56,16 +56,14 @@ function SoftwareMetrics(props) {
     setlistaNFRs(NFRs);
   }, []);
 
-  console.log("Filtro:", listaNFRs);
-
   React.useEffect(() => {
-    if (data && listaNFRs) { // Verifique se data e listaNFRs não são nulos antes de usar
-      const filtro = data.filter((item) => listaNFRs.includes(item["Related NFR"]));
+    if (data && listaNFRs) {
+      const filtro = data.filter((item) =>
+        listaNFRs.includes(item["Related NFR"])
+      );
       setResultado(filtro);
     }
   }, [data, listaNFRs]);
-
-  console.log('Resultado final:', resultado);
 
   let [dataB, setDataB] = React.useState([
     {
@@ -79,14 +77,23 @@ function SoftwareMetrics(props) {
     },
   ]);
 
-
   React.useEffect(() => {
     if (resultado) {
       setDataB(resultado);
     }
   }, [resultado]);
 
-  console.log(dataB);
+  const handleNextStep = () => {
+    const step3Data = JSON.parse(localStorage.getItem("step3"));
+    if (!step3Data || step3Data.length === 0) {
+      alert("No Software Metric selected! Try again!");
+      window.location.reload();
+    } else {
+      navigate("/evaluationplan", {
+        state: { data: selectedRows },
+      });
+    }
+  };
 
   return (
     <div className="mt-4">
@@ -111,11 +118,7 @@ function SoftwareMetrics(props) {
           className="btn btn-primary btn-lg active"
           size="lg"
           style={{ backgroundColor: "#186aa4", width: "392px" }}
-          onClick={() =>
-            navigate("/plan", {
-              state: { data: selectedRows },
-            })
-          }
+          onClick={handleNextStep}
         >
           FINISH MY EVALUATION PLAN
         </button>

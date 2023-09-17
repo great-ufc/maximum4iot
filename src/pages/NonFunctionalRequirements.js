@@ -28,6 +28,18 @@ function NonFunctionalRequirements(props) {
     []
   );
 
+  const handleNextStep = () => {
+    const step1Data = JSON.parse(localStorage.getItem("step1"));
+    if (!step1Data || step1Data.length === 0) {
+      alert("No Non-Functional Requirements selected! Try again!");
+      window.location.reload();
+    } else {
+      navigate("/artifacts", {
+        state: { data: selectedRows },
+      });
+    }
+  };
+
   useEffect(() => {
     localStorage.setItem("step1", JSON.stringify(selectedRows));
   }, [selectedRows]);
@@ -56,11 +68,7 @@ function NonFunctionalRequirements(props) {
           className="btn btn-primary btn-lg active mb-4"
           size="lg"
           style={{ backgroundColor: "#186aa4", width: "192px" }}
-          onClick={() =>
-            navigate("/artifacts", {
-              state: { data: selectedRows },
-            })
-          }
+          onClick={handleNextStep}
         >
           NEXT STEP
         </button>

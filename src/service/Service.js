@@ -29,7 +29,6 @@ function Service(num) {
     console.log("Loading...");
   } else {
     data = sheetData[num]["data"];
-    console.log("SoftwareMetrics data:", data);
   }
 
   if (error) {

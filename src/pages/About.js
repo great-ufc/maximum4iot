@@ -1,11 +1,11 @@
 import React from "react";
 import { Image, Container } from "react-bootstrap";
-import processImage from "../images/process.jpg";
+import processImage from "../images/processIot.jpg";
 
 function About() {
   return (
     <Container>
-      <h1 className="mt-5 text-center"> Maximium4IoT </h1>
+      <h1 className="mt-5 text-center"> Maximum4IoT </h1>
       <hr></hr>
       <p className="text-justify">
         The purpose of this process is to guide software engineers in the
@@ -21,7 +21,7 @@ function About() {
       </p>
       <center>
         {" "}
-        <Image src={processImage} />{" "}
+        <Image className="mt-2 mb-4" src={processImage} />{" "}
       </center>
       <p>
         <p>

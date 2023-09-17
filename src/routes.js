@@ -3,7 +3,7 @@ import App from './App';
 import NonFunctionalRequirements from './pages/NonFunctionalRequirements';
 import Artifacts from './pages/Artifacts';
 import SoftwareMetrics from './pages/SoftwareMetrics';
-import Plan from './pages/Plan';
+import EvaluationPlan from './pages/EvaluationPlan';
 import About from './pages/About';
 import Home from './pages/Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -23,7 +23,7 @@ const createRoutes = () => (
                 <Route path='/complementaryartifacts' element={<ComplementaryArtifacts />} />
                 <Route path='/ourteam' element={<OurTeam />} /> 
                 <Route path='/about' element={<About />} />
-                <Route path='/plan' element={<Plan />} />
+                <Route path='/evaluationplan' element={<EvaluationPlan />} />
                 </Route>
             </Routes>
             </Router>

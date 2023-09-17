@@ -31,10 +31,20 @@ function Artifacts(props) {
     []
   );
 
+  const handleNextStep = () => {
+    const step2Data = JSON.parse(localStorage.getItem("step2"));
+    if (!step2Data || step2Data.length === 0) {
+      alert("No quality evalution tool selected! Try again!");
+      window.location.reload();
+    } else {
+      navigate("/softwaremetrics", {
+        state: { data: selectedRows },
+      });
+    }
+  };
+
   useEffect(() => {
     localStorage.setItem("step2", JSON.stringify(selectedRows));
-    const valor = localStorage.getItem("chave");
-    console.log(valor);
   }, [selectedRows]);
 
   return (
@@ -62,11 +72,7 @@ function Artifacts(props) {
           className="btn btn-primary btn-lg active mb-4"
           size="lg"
           style={{ backgroundColor: "#186aa4", width: "192px" }}
-          onClick={() =>
-            navigate("/softwaremetrics", {
-              state: { data: selectedRows },
-            })
-          }
+          onClick={handleNextStep}
         >
           NEXT STEP
         </button>
