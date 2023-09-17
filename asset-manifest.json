@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/maximum4iot/static/css/main.5b2cb324.css",
-    "main.js": "/maximum4iot/static/js/main.93ecfe6b.js",
-    "static/media/process.jpg": "/maximum4iot/static/media/process.d0b27699b6c9e7b9438c.jpg",
+    "main.js": "/maximum4iot/static/js/main.d8b5800e.js",
+    "static/media/processIot.jpg": "/maximum4iot/static/media/processIot.d31056cc0a6cebd41d5f.jpg",
     "static/media/KaTeX_AMS-Regular.ttf": "/maximum4iot/static/media/KaTeX_AMS-Regular.853be92419a6c3766b9a.ttf",
     "static/media/KaTeX_Main-Regular.ttf": "/maximum4iot/static/media/KaTeX_Main-Regular.9eba1d77abcf2aa6e94e.ttf",
     "static/media/KaTeX_Main-Bold.ttf": "/maximum4iot/static/media/KaTeX_Main-Bold.8169508bf58f8bd92ad8.ttf",
@@ -66,10 +66,10 @@
     "static/media/KaTeX_Size3-Regular.woff2": "/maximum4iot/static/media/KaTeX_Size3-Regular.e1951519f6f0596f7356.woff2",
     "index.html": "/maximum4iot/index.html",
     "main.5b2cb324.css.map": "/maximum4iot/static/css/main.5b2cb324.css.map",
-    "main.93ecfe6b.js.map": "/maximum4iot/static/js/main.93ecfe6b.js.map"
+    "main.d8b5800e.js.map": "/maximum4iot/static/js/main.d8b5800e.js.map"
   },
   "entrypoints": [
     "static/css/main.5b2cb324.css",
-    "static/js/main.93ecfe6b.js"
+    "static/js/main.d8b5800e.js"
   ]
 }
