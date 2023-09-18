@@ -87,7 +87,6 @@ function SoftwareMetrics(props) {
     const step3Data = JSON.parse(localStorage.getItem("step3"));
     if (!step3Data || step3Data.length === 0) {
       alert("No Software Metric selected! Try again!");
-      window.location.reload();
     } else {
       navigate("/evaluationplan", {
         state: { data: selectedRows },
@@ -122,6 +121,18 @@ function SoftwareMetrics(props) {
         >
           FINISH MY EVALUATION PLAN
         </button>
+      </div>
+      <div className="d-flex justify-content-center align-items-center">
+        <p
+          style={{
+            color: "#186aa4",
+            textDecoration: "underline",
+            cursor: "pointer",
+          }}
+          onClick={() => navigate("/artifacts")}
+        >
+          Go back to the previous step.
+        </p>
       </div>
     </div>
   );

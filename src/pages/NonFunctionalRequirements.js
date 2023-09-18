@@ -32,7 +32,6 @@ function NonFunctionalRequirements(props) {
     const step1Data = JSON.parse(localStorage.getItem("step1"));
     if (!step1Data || step1Data.length === 0) {
       alert("No Non-Functional Requirements selected! Try again!");
-      window.location.reload();
     } else {
       navigate("/artifacts", {
         state: { data: selectedRows },

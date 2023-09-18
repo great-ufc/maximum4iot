@@ -35,7 +35,6 @@ function Artifacts(props) {
     const step2Data = JSON.parse(localStorage.getItem("step2"));
     if (!step2Data || step2Data.length === 0) {
       alert("No quality evalution tool selected! Try again!");
-      window.location.reload();
     } else {
       navigate("/softwaremetrics", {
         state: { data: selectedRows },
@@ -76,6 +75,18 @@ function Artifacts(props) {
         >
           NEXT STEP
         </button>
+      </div>
+      <div className="d-flex justify-content-center align-items-center">
+        <p
+          style={{
+            color: "#186aa4",
+            textDecoration: "underline",
+            cursor: "pointer",
+          }}
+          onClick={() => navigate("/nonfuncionalrequirements")}
+        >
+          Go back to the previous step.
+        </p>
       </div>
     </div>
   );

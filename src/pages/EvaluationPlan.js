@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { Fragment } from "react";
 import TableBoot from "react-bootstrap/Table";
 import printJS from "print-js";
 import { Image, Container } from "react-bootstrap";
@@ -17,6 +17,16 @@ export default function EvaluationPlan() {
   const step2 = JSON.parse(localStorage.getItem("step2"));
   const step3 = JSON.parse(localStorage.getItem("step3"));
 
+  const generateLineBreaks = (stepLength, interval) => {
+    const lineBreaks = [];
+    for (let i = interval; i < stepLength; i += interval) {
+      lineBreaks.push(<br key={`br-${i}`} />);
+      lineBreaks.push(<br key={`br-${i}`} />);
+      lineBreaks.push(<br key={`br-${i}`} />);
+    }
+    return lineBreaks;
+  };
+
   return (
     <>
       <div id="conteudo-para-imprimir" className="container fluid">
@@ -25,8 +35,10 @@ export default function EvaluationPlan() {
         </center>
         <hr></hr>
         <Container>
-          <h1 className="mt-5 text-center"> Maximum4IoT </h1>
-          <hr></hr>
+          <center>
+            <h1 className="mt-5 text-center"> Maximum4IoT </h1>
+          </center>
+
           <p className="text-justify">
             The purpose of this process is to guide software engineers in the
             evaluation activities of an Internet of Things application. This
@@ -42,7 +54,12 @@ export default function EvaluationPlan() {
           </p>
           <center>
             {" "}
-            <Image className="mt-2 mb-4" src={processImage} />{" "}
+            <Image
+              className="mt-2 mb-4"
+              src={processImage}
+              width="800px"
+              height="500px"
+            />{" "}
           </center>
           <p>
             <p>
@@ -157,6 +174,9 @@ export default function EvaluationPlan() {
               v. 136, p. 101 – 136, 2018. ISSN 0164-1212.
             </p>
           </p>
+          <br />
+          <br />
+          <br />
         </Container>
         <center>
           <h3 className="mt-4"> Non-Funtional Requiriments</h3>
@@ -185,6 +205,9 @@ export default function EvaluationPlan() {
             </tbody>
           </TableBoot>
         </div>
+        {step1.length > 0 &&
+          step1.length > 5 &&
+          generateLineBreaks(step1.length, 5)}
         <center>
           <h3>Artifacts</h3>
         </center>
@@ -213,6 +236,9 @@ export default function EvaluationPlan() {
           </TableBoot>
         </div>
         <div style={{ pageBreakBefore: "always" }}></div>
+        {step2.length > 0 &&
+          step2.length > 5 &&
+          generateLineBreaks(step2.length, 5)}
         <center>
           <h3>Software metrics</h3>
         </center>
