@@ -97,12 +97,13 @@ function SoftwareMetrics(props) {
   return (
     <div className="mt-4">
       <div className="container fluid mt-4">
-        <h4 style={{ color: "#186aa4" }}>CHOOSE THE SOFTWARE PROCESS</h4>
+        <h4 style={{ color: "#186aa4" }}> CHOOSE THE SOFTWARE MEASURES</h4>
         <h5>
-          In prima processus parte, eliguntur requisita non functionalia ad
-          aestimationem. Essentialis est stakeholders allicere in hac phase ut
-          efficienter aestimatio perficiatur et omnia critica systematis, quod
-          aestimandum est, comprehendat.
+          In this step, you will choose the software measures to evaluate the
+          software quality. Only the software measures related to the NFR you
+          previously selected will appear here. You can use the GQM approach to
+          develop your own measures if none, or go back to the NFR selection
+          step and choose another NFR.
         </h5>
       </div>
 

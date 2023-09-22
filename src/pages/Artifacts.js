@@ -49,14 +49,22 @@ function Artifacts(props) {
   return (
     <div>
       <div className="container fluid mt-4">
-        <h4 style={{ color: "#186aa4" }}>
-          CHOOSE THE QUALITATIVE EVALUATION TOOLS
-        </h4>
+        <h4 style={{ color: "#186aa4" }}>Choose the HCI evaluation tools</h4>
         <h5>
-          Before starting a qualitative evaluation, it is necessary to plan it,
-          clarify its objectives and establish what questions will be answered
-          based on its results. The DECIDE method can be used to help plan the
-          evaluation, you can access it by clicking here.
+          Before starting an HCI evaluation, it is necessary to plan it, clarify
+          its objectives, and establish what questions will be answered based on
+          its results. The DECIDE method can be used to help plan the
+          evaluation, you can access it by clicking{" "}
+          <text
+            style={{
+              color: "#186aa4",
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+            onClick={() => navigate("/complementaryartifacts")}
+          >
+            here.
+          </text>
         </h5>
       </div>
 
