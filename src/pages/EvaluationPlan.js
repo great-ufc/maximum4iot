@@ -197,14 +197,14 @@ export default function EvaluationPlan() {
           <br />
         </Container>
         <center>
-          <h3 className="mt-4"> Non-Funtional Requiriments</h3>
+          <h3 className="mt-4"> Non-functional requirements</h3>
         </center>
         <div className="table-responsive">
           <TableBoot className="table table-hover border-secondary align-middle">
             <thead className="table-secondary">
               <tr>
                 <th>#</th>
-                <th>Non Functional Requiriments</th>
+                <th>Non-functional requirements</th>
                 <th>Description</th>
                 <th>Reference</th>
               </tr>

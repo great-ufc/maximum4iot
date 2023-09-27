@@ -55,11 +55,20 @@ function SoftwareMetrics(props) {
     let NFRs = step1.map((item) => item["NFR"]);
     setlistaNFRs(NFRs);
   }, []);
-
+  /*
   React.useEffect(() => {
     if (data && listaNFRs) {
       const filtro = data.filter((item) =>
         listaNFRs.includes(item["Related NFR"])
+      );
+      setResultado(filtro);
+    }
+  }, [data, listaNFRs]);*/
+
+  React.useEffect(() => {
+    if (data && listaNFRs) {
+      const filtro = data.filter((item) =>
+        item["Related NFR"] && listaNFRs.some((nfr) => nfr && item["Related NFR"].includes(nfr))
       );
       setResultado(filtro);
     }
