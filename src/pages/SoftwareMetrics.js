@@ -47,36 +47,27 @@ function SoftwareMetrics(props) {
     localStorage.setItem("step3", JSON.stringify(selectedRows));
   }, [selectedRows]);
 
-  const [listaNFRs, setlistaNFRs] = useState(null);
-  const [resultado, setResultado] = useState(null);
+  const [listNFRs, setlistNFRs] = useState(null);
+  const [response, setResponse] = useState(null);
 
   React.useEffect(() => {
     let step1 = JSON.parse(localStorage.getItem("step1"));
     let NFRs = step1.map((item) => item["NFR"]);
-    setlistaNFRs(NFRs);
+    setlistNFRs(NFRs);
   }, []);
-  /*
-  React.useEffect(() => {
-    if (data && listaNFRs) {
-      const filtro = data.filter((item) =>
-        listaNFRs.includes(item["Related NFR"])
-      );
-      setResultado(filtro);
-    }
-  }, [data, listaNFRs]);*/
 
   React.useEffect(() => {
-    if (data && listaNFRs) {
-      const filtro = data.filter((item) =>
-        item["Related NFR"] && listaNFRs.some((nfr) => nfr && item["Related NFR"].includes(nfr))
+    if (data && listNFRs) {
+      const filtered_data = data.filter((item) =>
+        item["Related NFR"] && listNFRs.some((nfr) => nfr && item["Related NFR"].includes(nfr))
       );
-      setResultado(filtro);
+      setResponse(filtered_data);
     }
-  }, [data, listaNFRs]);
+  }, [data, listNFRs]);
 
   let [dataB, setDataB] = React.useState([
     {
-      Measure: "Dados reais 0",
+      Measure: "Loading...",
       Description: "Loading...",
       RelatedNFR: "Loading...",
       MeasurementFunction: "Loading...",
@@ -87,10 +78,10 @@ function SoftwareMetrics(props) {
   ]);
 
   React.useEffect(() => {
-    if (resultado) {
-      setDataB(resultado);
+    if (response) {
+      setDataB(response);
     }
-  }, [resultado]);
+  }, [response]);
 
   const handleNextStep = () => {
     const step3Data = JSON.parse(localStorage.getItem("step3"));
